@@ -38,7 +38,7 @@ describe('AngularTooltipDirective', () => {
 
     it('should show and hide the tooltip', fakeAsync(() => {
         buttonDebugElement.nativeElement.dispatchEvent(
-            new Event('mousemove', { bubbles: true })
+            new MouseEvent('mousemove')
         );
 
         // Tooltip will be shown after a 250ms delay
