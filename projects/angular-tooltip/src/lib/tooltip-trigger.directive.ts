@@ -2,6 +2,7 @@ import {
     AfterViewInit,
     Directive,
     ElementRef,
+    HostListener,
     Input,
     OnDestroy,
     ViewContainerRef,
@@ -36,6 +37,9 @@ export class TooltipTriggerDirective implements AfterViewInit, OnDestroy {
     private tooltipOpen: boolean = false;
     private destroy$: Subject<HTMLElement> = new Subject<HTMLElement>();
 
+    private showTimeoutId: number;
+    private hideTimeoutId: number;
+
     constructor(
         private overlay: Overlay,
         private viewContainerRef: ViewContainerRef,
@@ -47,7 +51,86 @@ export class TooltipTriggerDirective implements AfterViewInit, OnDestroy {
     @Input('mTooltipTrigger') public tooltip: TooltipComponent;
     @Input('mTooltipPosition') public position: TooltipPosition;
 
+    @HostListener('mouseenter', ['$event'])
+    public onMouseenter(e: Event): void {
+        if (this.tooltipOpen) {
+            return;
+        }
+
+        if (this.showTimeoutId) {
+            return;
+        }
+
+        this.showTimeoutId = setTimeout(() => {
+            this.openTooltip();
+
+            document.addEventListener('mousemove', (event: MouseEvent) => {
+                // Overcome gap between trigger and tooltip elements
+                if (this.hideTimeoutId) {
+                    return;
+                }
+
+                this.hideTimeoutId = setTimeout(() => {
+                    console.log(
+                        this.isMovedOutsideElements(
+                            this.elementRef.nativeElement,
+                            this.tooltip.tooltipRef.nativeElement,
+                            event
+                        )
+                    );
+
+                    return;
+
+                    if (
+                        this.isMovedOutsideElements(
+                            this.elementRef.nativeElement,
+                            this.tooltip.tooltipRef.nativeElement,
+                            event
+                        )
+                    ) {
+                        console.log('outside');
+
+                        return;
+                    }
+
+                    this.closeTooltip();
+                    this.hideTimeoutId = null;
+                }, 100);
+            });
+
+            this.showTimeoutId = null;
+        }, 250);
+    }
+
+    @HostListener('mouseleave', ['$event'])
+    public onMouseleave(e: Event): void {
+        console.log(e);
+
+        return;
+
+        // Cancel the delayed show if it is scheduled
+        if (this.showTimeoutId) {
+            clearTimeout(this.showTimeoutId);
+            this.showTimeoutId = null;
+        }
+
+        if (!this.tooltipOpen) {
+            return;
+        }
+
+        if (this.hideTimeoutId) {
+            return;
+        }
+
+        this.hideTimeoutId = setTimeout(() => {
+            this.closeTooltip();
+            this.hideTimeoutId = null;
+        }, 90);
+    }
+
     public ngAfterViewInit(): void {
+        return;
+
         if (this.platform.IOS || this.platform.ANDROID) {
             this.initTablet();
 
