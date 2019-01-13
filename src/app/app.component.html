@@ -1,84 +1,40 @@
 <div class="container">
-    <button
-        [mTooltipTrigger]="widthHeadline"
-        mTooltipPosition="right">
-        fooo
-    </button>
-
-    <div
-        class="premium"
-        [mTooltipTrigger]="widthHeadline"
-        mTooltipPosition="right">
-        <div class="premium__main">
-            345,19 €
-        </div>
-        <div class="premium__info">
-            Ihr Anteil
-        </div>
-    </div>
-    <div class="button1">
-        <button [mTooltipTrigger]="tooltipRef1">
-            Foo
-        </button>
-    </div>
-    <div class="button2">
-        <button [mTooltipTrigger]="widthHeadline">
-            With Headline
-        </button>
-    </div>
-    <div class="button1">
-        <button [mTooltipTrigger]="tooltipRef3">
-            Foo
-        </button>
-    </div>
-    <div class="button2">
-        <button [mTooltipTrigger]="tooltipRef4">
-            Bar
-        </button>
-    </div>
-    <div class="button1">
-        <button [mTooltipTrigger]="tooltipRef5">
-            Foo
-        </button>
-    </div>
-    <m-tooltip #tooltipRef1>
-        Tooltip content <strong>yeah</strong>
-    </m-tooltip>
-    <m-tooltip headline="Warning" #widthHeadline>
-        <div>
-            Tarife mit sehr gutem Preis-Leistungs-Verhältnis und umfangreichen Leistungen:
+    <header>
+    </header>
+    <main>
+        <aside>
+        </aside>
+        <section>
+            <article *ngFor="let n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                <div
+                    class="premium"
+                    id="tooltip-trigger-{{ n }}"
+                    [mTooltipTrigger]="widthHeadline"
+                    mTooltipPosition="{{ n % 2 ? '' : 'right'}}">
+                    <div class="premium__main">
+                        345,19 €
+                    </div>
+                    <div class="premium__info">
+                        monatlich
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <m-tooltip headline="Lorem ipsum" #widthHeadline>
+        <div class="tooltip-content">
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.
             <ul>
                 <li>
-                    2-Bett-Zimmer, Chefarzt
+                    Si dolor amet
                 </li>
                 <li>
-                    &gt; 80% Erstattung Zahnbehandlung
+                    Consetetur sadipscing elitr
                 </li>
                 <li>
-                    &gt; 60% Erstattung Zahnersatz
+                    nonumy eirmod tempor invidunt ut labore et
                 </li>
             </ul>
         </div>
     </m-tooltip>
-    <m-tooltip #tooltipRef3>
-        Tooltip content <strong>yeah</strong>
-    </m-tooltip>
-    <m-tooltip #tooltipRef4>
-        Auch Tooltip content <strong>yeah</strong>!
-    </m-tooltip>
-    <m-tooltip #tooltipRef5>
-        Tooltip content <strong>yeah</strong>
-    </m-tooltip>
-    <m-tooltip #tooltipChildren>
-        Tooltip content <strong>yeah</strong>?
-    </m-tooltip>
-
-
-<m-tooltip>
-</m-tooltip>
-
-    <m-tooltip>
-        Lorizzle yo dolizzle bling bling for sure, izzle adipiscing yo. Its fo rizzle sapizzle velizzle, mofo volutpizzle, crazy sizzle, dang vel, arcu. Pellentesque owned tortizzle. Sizzle erizzle. Bizzle at dolizzle dapibus ghetto tempizzle break it down. Maurizzle pellentesque tellivizzle et turpizzle. Shit izzle shiznit. Pellentesque eleifend rhoncizzle nisi. In fo shizzle my nizzle habitasse bizzle dictumst. Crackalackin dapibizzle. Izzle yo urna, pretizzle shiznit, mattis its fo rizzle, fo shizzle mofo, nunc. Izzle sheezy. Integizzle semper fo dang purus.
-    </m-tooltip>
-
 </div>
